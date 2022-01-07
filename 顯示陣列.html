@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name = "viewport" content = "width = device-width", initial-scale = "1.0">        
+        <title>hello</title>
+        <script src = "https://unpkg.com/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id = "app">
+            <!--顯示陣列-->
+            <h2 id="color">各個顏色</h2>
+            <ul>
+                <li v-for = "color in colors">
+                    {{color}}
+                </li>
+            </ul>
+            <!--使用function顯示陣列裡的物件-->
+            <h2 id="father">各家庭父親</h2>
+                <ul>
+                    <li v-for = "home in home" v-on:click = "myfa(home.father)">
+                        {{home.father}}
+                    </li>
+                </ul>
+            
+        </div>
+        
+        <script>
+            new Vue({
+            el : '#app',
+            data: {
+                colors : ['black', 'red', 'blue'],
+                home : [{father:'tom'},
+                        {father:'bob'},
+                        {father:'alen'}
+                    ]
+            },
+            method:{
+                myfa: function(father){
+                    alert('我的父親是'+father)
+                }
+            }
+        })
+        </script>
+    </body>
+</html>

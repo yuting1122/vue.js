@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name = "viewport" content = "width = device-width", initial-scale = "1.0">        
+        <title>hello</title>
+        <script src = "https://unpkg.com/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id = "app">
+            <h1>請輸入台幣</h1>
+            <input id = "money" type = "text" v-model = "message">
+            <div class = "japan">
+                <h3>日幣：{{message * 4.18}}</h3>
+                <h3>美元：{{message * 0.04}}</h3>
+                <h3>人民幣：{{message * 0.23}}</h3> <br><br>
+            </div>
+        </div>
+        <script>
+            new Vue({
+            el : '#app',
+            data: {
+                message : ''
+            }
+        })
+        </script>
+    </body>
+</html>
