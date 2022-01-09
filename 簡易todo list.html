@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo list</title>
+    <script src = "https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id = "app" >
+        <input type="text" placeholder="輸入待辦事項" @keyup.enter = "addtodo(newtodo)" v-model = "newtodo">
+        <h2>待辦事項</h2>
+        <ul style="list-style-type: decimal;">
+            <li v-for = "todo in todos">
+                <input type="checkbox" >
+                {{todo.point}}
+                -<a href="#" @click.prevent = "success(todo)">完成</a>
+                -<a href="#" @click.prevent = "unsuccess(todo)">未完成</a>
+                -<a href="#" @click.prevent = "removetodo(todo)">刪除</a>
+            </li>
+        </ul>
+        <div>
+            <li v-for = "todo in todos" >
+                {{todo.point}}  <a>是否完成</a>
+                {{todo.completed}}
+            </li>
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                todos : [],
+                newtodo : '',
+            },
+            methods:{
+                addtodo : function(todo){
+                    this.todos.push({point:todo,completed:false})
+                },
+                removetodo : function(todo){
+                    this.todos.splice(this.todos.indexOf(todo),1);
+                }, 
+            }
+        })
+    </script>
+</body>
+</html>
