@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name = "viewport" content = "width = device-width", initial-scale = "1.0">        
+        <title>hello</title>
+        <script src = "https://unpkg.com/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id = "app">
+            <h1>{{count}}</h1>
+            <br>
+            <button v-on:click = "updateEvent">update</button>
+            <br>
+            <button id = "del">del</button>
+        </div>
+
+        <script>
+            var vm = new Vue({
+            el : '#app',
+            data: {
+                count : 0
+            },
+
+            methods : {
+                updateEvent : function(){
+                    this.count += 1;
+                }
+            },
+
+            beforeCreate : function(){
+                //data實體剛建立，屬性未載入
+                console.log('beforeCreate-this.count:',this.a);     //會顯示undefined
+                console.log('beforeCreate-this.$el:',this.$el);     //屬性$el未載入前
+            },
+
+            created : function(){
+                //data實體已建立，屬性還沒被建立
+                console.log('created-this.count:',this.count);     //會顯示'a內容'                
+                console.log('created-this.$el:',this.$el);     //資料$data已可取得，但屬性$el尚未建立
+            },
+
+            beforeMount : function(){
+                //$el編譯前或掛至HTML之前
+                console.log('beforeMount-this.count:',this.count);
+                console.log('beforeMount-this.this.$el:',this.$el);
+
+            },
+
+            mounted : function(){
+                //編譯完成或掛至HTML之後
+                console.log('mounted-this.this.$el:',this.$el);
+            },
+
+            beforeUpdate : function(){
+                //元件更新之前 (網頁h1上面的文字,實體文字) ，會觸發updated
+                console.log('beforeUpdate:',
+                this.$el.querySelector('h1').innerText,
+                this.count);
+            },
+
+            updated : function(){
+                //元件被更新之後 (兩者已被同步)
+                console.log('updeated:',
+                this.$el.querySelector('h1').innerText,
+                this.count);
+            },
+
+            beforeDestroy : function(){
+                //要移除元件(移除watch,子元件,事件監聽器)，會觸發destroyed
+                //移除vue instance之前
+                console.log('beforeDestroy');
+            },
+
+            destroyed : function(){
+                //移除vue instance之後
+                console.log('destroyed');
+            }
+        });
+
+        document.getElementById('del').addEventListener('click',function(){
+            vm.$destroy();
+        })
+        </script>
+    </body>
+</html> 
