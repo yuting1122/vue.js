@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>compare</title>
+    <script src = "https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id = "app">
+        <h2>比較體重</h2>
+        輸入A體重：<input type="text" v-model = "a">
+        <br>
+        輸入B體重：<input type="text" v-model = "b">
+        <ul>
+            <li>
+                誰比較重？{{whoheavey}}
+            </li>
+            <li>
+                比平均體重（50公斤）重多少？
+                <br>
+                a ：{{heaveyA}}
+                <br>
+                b ：{{heaveyB}}
+            </li>
+
+        </ul>
+    </div>
+    
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+            a : '',
+            b : '',
+            average : 50
+            },
+            computed:{
+            whoheavey : function(){
+                if(this.a>this.b){
+                    return 'a'
+                }else if(this.a<this.b){
+                    return 'b'
+                }else{
+                    return '一樣重'
+                }
+            },
+            heaveyA : function(){
+                    return this.a-this.average
+            },    
+            heaveyB : function(){
+                    return this.b-this.average
+            }
+        }
+        }) 
+       
+    </script>
+</body>
+</html>
