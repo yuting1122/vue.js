@@ -30,14 +30,14 @@
 
             beforeCreate : function(){
                 //data實體剛建立，屬性未載入
-                console.log('beforeCreate-this.count:',this.a);     //會顯示undefined
-                console.log('beforeCreate-this.$el:',this.$el);     //屬性$el未載入前
+                console.log('beforeCreate-this.count:',this.a);     
+                console.log('beforeCreate-this.$el:',this.$el);                 
             },
 
             created : function(){
                 //data實體已建立，屬性還沒被建立
-                console.log('created-this.count:',this.count);     //會顯示'a內容'                
-                console.log('created-this.$el:',this.$el);     //資料$data已可取得，但屬性$el尚未建立
+                console.log('created-this.count:',this.count);                     
+                console.log('created-this.$el:',this.$el);    
             },
 
             beforeMount : function(){
