@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-model-props</title>
+    <script src = "https://unpkg.com/vue/dist/vue.js"></script>
+    <style>
+        #app{
+            font-size: 1.2px;
+        }
+    </style>
+</head>
+<body>
+    <!--Props in , Events out-->
+    <div id = "app">
+        <p>
+            parent: {{ message }} <input v-model="message">
+        </p>
+        <hr>
+        <p>
+            child:
+            <my-component :parent-message="message"></my-component>  
+        </p>
+        
+    </div>
+    
+    <script>
+        // 子組件
+        Vue.component('my-component',{
+            template: '<span>\
+                        {{ parentMessage }}\
+                        <input v-model="message">\
+                        <button @click="updateText">Update</button>\
+                        </span>',
+                        //  {{ parentMessage }} 與24行對應
+            props: {
+                parentMessage: String
+            },
+            data: function(){  
+                return {
+                    message: this.parentMessage
+                }
+            },
+            methods:{
+                updateText() {
+                    this.$parent.$emit('update', this.message);
+                  // 在子組件拿父組件使用 => $parent
+                  // 發送事件 => $emit
+                  // 自訂的事件 => update
+                }
+            }
+        });
+
+        // 父組件
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello'
+            },
+            methods: {
+                selfUpdate(val){  // val參數就是從第49行 this.message 傳過來
+                    this.message = val;
+                }
+            },
+            mounted() {
+                this.$on('update', this.selfUpdate);
+                // 綁定執行事件 => $on
+                // 自訂事件 'update'
+                // 當執行第46行時，會觸發這行，接著執行selfUpdate
+            }
+        });
+    </script>
+</body>
+</html>
