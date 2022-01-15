@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>compare</title>
+    <script src = "https://unpkg.com/vue/dist/vue.js"></script>
+    <style>
+        #app{
+            font-size: 1.2px;
+        }
+    </style>
+</head>
+<body>
+    <div id = "app">
+        <div>count of parent:{{counts}}</div>
+        <br>
+        <my-component :count="counts"></my-component>
+        <my-component :count="counts"></my-component>
+        <my-component :count="counts"></my-component>
+        <my-component :count="counts"></my-component>
+        <my-component :count="counts"></my-component>
+    </div>
+    
+    <script>
+
+        Vue.component('my-component',{
+            template: '<div class="component"><span>{{c}}</span> - <button @click="c++">add</button></div>',
+            props: ['count'],
+            // 若 num 是在counts中的物件，但想讓count分開加 1 ，可以加入 data
+            data: function(){   //也等於 data(){ ... }
+                return{
+                    c: this.count.num
+                }
+            }
+        });
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                counts: {
+                    num: 0
+                }
+            }
+        });
+    </script>
+</body>
+</html>
