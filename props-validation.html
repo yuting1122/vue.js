@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>compare</title>
+    <script src = "https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id = "app">
+        <my-component :prop-c="msg" :prop-f="num"></my-component>
+    </div>
+    
+    <script type="text/x-template" id="my-component">
+        <div class="component">
+            {{propD}}
+            <br>
+            {{propE.message}}
+        </div>
+    </script>
+
+    <script>
+        Vue.component('my-component', {
+            props: {
+                parentMsg: null, //null 代表不檢查型別
+                propA: Number, // 限定數字
+                propB: [String,Number],  // 多種條件可用[] 隔開
+                propC: {
+                    type: String, // 必要欄位，且限定字串型別
+                    required: true // 必要欄位
+                },
+                propD: {
+                    // 數字型別，且有預設值
+                    type: Number,
+                    default: 111
+                },
+                propE: {
+                    // Object 型別，代表可以接受是個物件或陣列的型別
+                    type: Object,
+                    default: function(){
+                        return {
+                            message: 'hello'
+                        } 
+                    }
+                },
+                propF: {
+                    // 自訂的條件驗證
+                    validator: function(value){
+                        return value > 10 // 大於10才合法，小於10會跳出
+                    }
+                }
+            },
+            template: '#my-component',
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: "123",
+                num: 12
+            }
+        })
+    </script>
+</body>
+</html>
