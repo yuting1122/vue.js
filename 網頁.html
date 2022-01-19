@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src = "https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body{
+            background-color: lightblue;
+        }
+        .item_header{
+            display: flex;
+            width: 1500px;
+            margin: 0 auto;
+            height: 30px;
+            background-color: lightyellow;
+            border-radius: 3px;
+            padding-left: 10px;
+            font-size: 25px;
+        }
+        .item_detail img{
+            width: 80px;
+            height: 80px;
+            border-radius: 3px;
+            float: left;
+        }
+        .item_body{
+            margin-top: 20px;
+            height: 100px;
+            align-items: center;    
+        }
+        .item_header .item_detail{
+            width: 80%;
+        }
+        .item_header div{
+            width: 40%;
+            color: darkblue;
+        }
+        .item_container{
+            width: 70px;
+        }
+        .name{
+            margin-left: 100px;
+            margin-top: 20px;
+        } 
+    </style>
+</head>
+<body>
+    <div id = "app">
+        <div class="container">
+            <div class="item_header">
+                <div class="item_detail">商品</div>
+                <div class="dayprice">日拋價錢</div>
+                <div class="count1">數量</div>
+                <div class="monthprice">月拋價錢</div>
+                <div class="count2">數量</div>  
+                <div class="amount">總計</div>
+                <div class="operate">操作</div>
+            </div>
+            <div class="item_container" v-for="item in items" :key="item.id" >               
+                <div class="item_header item_body">
+                        <div class="item_detail">
+                            
+                            <img v-bind:src="item.img" alt="">
+                            <div class="name">{{item.name}}</div>
+                        </div>
+                        <div class = "dayprice">${{item.dayprice}}</div>
+                        <div class = "count1">
+                            <button @click="countsub1(item)">-</button>
+                            {{item.count1}}
+                            <button @click="countadd1(item)" >+</button>
+                        </div>
+                        <div class = "monthprice">${{item.monthprice}}</div>
+                        <div class = "count2">
+                            <button @click="countsub2(item)">-</button>
+                            {{item.count2}}
+                            <button @click="countadd2(item)" >+</button>
+                        </div>
+                        <div class = "amount">{{item.dayprice * item.count1 + item.monthprice * item.count2}}</div>
+                        <div class = "operate">
+                            <button @click="remove(item)" style="font-size: 20px;">刪除</button>
+                        </div>     
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                items: [{
+                    id: '1',
+                    name: '海昌隱形眼鏡	',
+                    img: 'https://media.istockphoto.com/vectors/smile-emoji-face-icon-with-yellow-color-vector-id880436670?k=6&m=880436670&s=170667a&w=0&h=vpwg2zLfRWTnKV0SLUivnQGRIbeUxRRalPcct3bJ92E=',
+                    dayprice: '300',
+                    count1: '0',
+                    monthprice: '198',
+                    count2: '0'
+                },
+                {
+                    id: '2',
+                    name: '星歐隱形眼鏡	',
+                    img: 'https://media.istockphoto.com/vectors/smile-emoji-face-icon-with-yellow-color-vector-id880436670?k=6&m=880436670&s=170667a&w=0&h=vpwg2zLfRWTnKV0SLUivnQGRIbeUxRRalPcct3bJ92E=',
+                    dayprice: '	250',
+                    count1: '0',
+                    monthprice: '0',
+                    count2: '0'
+                },
+                {
+                    id: '3',
+                    name: '酷柏隱形眼鏡	',
+                    img: 'https://media.istockphoto.com/vectors/smile-emoji-face-icon-with-yellow-color-vector-id880436670?k=6&m=880436670&s=170667a&w=0&h=vpwg2zLfRWTnKV0SLUivnQGRIbeUxRRalPcct3bJ92E=',
+                    dayprice: '390',
+                    count1: '0',
+                    monthprice: '250',
+                    count2: '0'
+                }
+                ]
+            },
+            methods:{
+                countsub1: function(item){
+                    if(item.count1>=1){
+                        item.count1--;
+                    }
+                },
+                countadd1: function(item){
+                    item.count1++;
+                },
+                countsub2: function(item){
+                    if(item.count2>=1){
+                        item.count2--;
+                    }
+                },
+                countadd2: function(item){
+                    item.count2++;
+                },
+                remove: function(index){
+                    this.items.splice(index,1);
+                    console.log(item);
+                }
+            },
+        })
+
+
+    </script>
+
+
+
+    
+</body>
+</html>
